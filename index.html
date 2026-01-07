@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        .wrapper {
+            position: relative;
+            margin: 200px auto 0;
+            padding: 30px;
+            width: 320px;
+            border-radius: 20px;
+            background-color: rgba(155, 198, 255, 0.7);
+            white-space: nowrap;
+        }
+        .enter {
+            display: block;
+            box-sizing: border-box;
+            border-radius: 5px / 10px 5px / 10px 0 0;
+            margin: 0;
+            padding: 5px;
+            border: 0;
+            width: 260px;
+            height: 40px;
+            font-size: 1.3rem;
+            caret-color: black;
+            position: relative;
+            float: left;
+        }
+        .enter::placeholder {
+            position: absolute;
+            top: 6px;
+            left: 7px;
+        }
+        .size{
+            position: absolute;
+            top: 20px;
+            left: 120px;
+        }
+        .add {
+            display: block;
+            float: right;
+            background-color: #ddd;
+            border: 0;
+            margin: 0;
+            padding: 0;
+            width: 60px;
+            height: 40px;
+        }
+        .add:hover {
+            transition: background-color 0.05s;
+            background-color: #aaa;
+        }
+        .add:active {
+            background-color: #ddd;
+        }
+        .list {
+            padding: 0px;
+        }
+        .list::before {
+            display: block;
+            content: "";
+            height: 0;
+            clear: both;
+        }
+        .item {
+            box-sizing: border-box;
+            width: 100%;
+            position: relative;
+            list-style: none;
+            padding: 10px 0;
+        }
+        .item:nth-of-type(1) {
+            padding: 30px 0 10px;
+        }
+        /* .delation::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 280px;
+        } */
+        .delation {
+            /* position: absolute;
+            right: 0;
+            bottom: 5px; */
+            vertical-align: middle;
+            float: right;
+            width: 40px;
+            height: 40px;
+            background-color: transparent;
+            font-size: 1.8rem;
+            color: #666;
+            padding: 0;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .span {
+            position: relative;
+            z-index: 1;
+            vertical-align: middle;
+        }
+        .span.strikethrough {
+            text-decoration: line-through;
+            color: #555;
+        }
+        .checkbox {
+            position: absolute;
+            left: 0;
+            appearance: none;
+            box-sizing: border-box;
+            margin: 0;
+            width: 280px;
+            padding: 20px;
+            background-color: transparent;
+            border: 0;
+            cursor: pointer;
+            z-index: 2;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script>
+        /// -----------------------------------------
+        // Setting
+        /// -----------------------------------------
+        window.onload = function() {
+            new Sortable(document.getElementById("list"), {animation: 150});
+        };
+        let size = NaN;
+        let list = NaN;
+        let count = 0;
+        let item = NaN;
+        let delation = NaN;
+        let chechbox = NaN;
+
+        /// -----------------------------------------
+        // 要素の追加
+        /// -----------------------------------------
+        function join () {
+            count += 1;
+
+            //  Object  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+            size = document.getElementById("range")
+            list = document.getElementById("list");
+            item = document.createElement("li"); //on0
+            span = document.createElement("span"); //on1
+            delation = document.createElement("button"); //on2
+            // trash = document.createElement("i")
+            checkbox = document.createElement("input"); //on3
+            // let contents = [item, span, delation, checkbox];
+            // for (i=0;i<contents.length;i++) {
+            //     contents[i].className = "on"+ i;
+            //     contents[i].id = "on" + i + count;
+            // }
+
+            //  名づけ  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+            item.className = "item";
+            item.id = "item" + count;
+            span.className = "span";
+            span.id = "span" + count;
+            delation.className = "delation fa-solid fa-trash";
+            delation.id = "delation fa-solid fa-trash" + count;
+            // trash.className = "fa-solid fa-trash";
+            // trash.id = "trash" + count;
+            checkbox.className = "checkbox";
+            checkbox.id = "checkbox" + count;
+
+            //  Event  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+            size.
+            delation.onclick = delate;
+            checkbox.onclick = striketh;
+            
+            //  Others  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+            checkbox.type = "checkbox";
+            span.textContent = document.getElementById("enter").value;
+            enter.value = "";
+            
+            list.prepend(item);
+            item.appendChild(span);
+            item.appendChild(checkbox);
+            item.appendChild(delation);
+        }
+        /// --------------------------------------------
+        // 大小バー
+        /// --------------------------------------------
+        function size (e) {
+
+            document.getElementById()
+        }
+
+        /// --------------------------------------------
+        // 削除ボタン
+        /// --------------------------------------------
+        function delate (e) {
+            //console.log("classNameLength :" + e.target.className.length)
+            document.getElementById("item"+e.target.id.substr(e.target.className.length, String(count).length)).remove();
+        }
+
+        /// --------------------------------------------
+        // 取り消し線
+        /// --------------------------------------------
+        function striketh (e) {
+            document.getElementById("span"+e.target.id.substr(e.target.className.length, String(count).length)).classList.toggle("strikethrough");
+        }
+    </script>
+</head>
+<body>
+    <main class="wrapper">
+        <input id="enter" class="enter" type="text" placeholder="やることを入力">
+        <input id="size" class="size" type="range">
+        <button id="add" class="add" onclick="join()">ADD</button>
+        <ul id="list" class="list"></ul>
+    </main>
+</body>
+</html>
