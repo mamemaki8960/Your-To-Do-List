@@ -37,7 +37,7 @@
             top: 6px;
             left: 7px;
         }
-        .size{
+        .range{
             position: absolute;
             top: 20px;
             left: 120px;
@@ -69,11 +69,12 @@
             clear: both;
         }
         .item {
-            box-sizing: border-box;
-            width: 100%;
             position: relative;
+            display: flex;
+            width: 100%;
             list-style: none;
             padding: 10px 0;
+            align-items: center;
         }
         .item:nth-of-type(1) {
             padding: 30px 0 10px;
@@ -85,11 +86,8 @@
             width: 280px;
         } */
         .delation {
-            /* position: absolute;
+            position: absolute;
             right: 0;
-            bottom: 5px; */
-            vertical-align: middle;
-            float: right;
             width: 40px;
             height: 40px;
             background-color: transparent;
@@ -103,7 +101,6 @@
         .span {
             position: relative;
             z-index: 1;
-            vertical-align: middle;
         }
         .span.strikethrough {
             text-decoration: line-through;
@@ -117,26 +114,37 @@
             margin: 0;
             width: 280px;
             padding: 20px;
-            background-color: transparent;
+            /* background-color: transparent; */
             border: 0;
             cursor: pointer;
             z-index: 2;
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-    <script>
+</head>
+<body>
+    <main class="wrapper">
+        <input id="enter" class="enter" type="text" placeholder="やることを入力">
+        <input id="range" class="range" type="range" onchange="sizing()" max="300" min="100" value="200">
+        <button id="add" class="add" onClick="join()">ADD</button>
+        <ul id="list" class="list"></ul>
+    </main>
+</body>
+ <script>
         /// -----------------------------------------
         // Setting
         /// -----------------------------------------
-        window.onload = function() {
+        window.onLoad = function() {
             new Sortable(document.getElementById("list"), {animation: 150});
         };
-        let size = NaN;
+        let range = NaN;
+        let size = 0;
         let list = NaN;
         let count = 0;
         let item = NaN;
         let delation = NaN;
         let chechbox = NaN;
+        console.log("start");
 
         /// -----------------------------------------
         // 要素の追加
@@ -145,7 +153,6 @@
             count += 1;
 
             //  Object  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-            size = document.getElementById("range")
             list = document.getElementById("list");
             item = document.createElement("li"); //on0
             span = document.createElement("span"); //on1
@@ -158,7 +165,7 @@
             //     contents[i].id = "on" + i + count;
             // }
 
-            //  名づけ  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+            //  Naming  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
             item.className = "item";
             item.id = "item" + count;
             span.className = "span";
@@ -171,9 +178,8 @@
             checkbox.id = "checkbox" + count;
 
             //  Event  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-            size.
-            delation.onclick = delate;
-            checkbox.onclick = striketh;
+            delation.onClick = delate;
+            checkbox.onClick = striketh;
             
             //  Others  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
             checkbox.type = "checkbox";
@@ -184,14 +190,18 @@
             item.appendChild(span);
             item.appendChild(checkbox);
             item.appendChild(delation);
+
+            // Style \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+            span.style.fontSize = size/100 +"rem";
         }
         /// --------------------------------------------
         // 大小バー
         /// --------------------------------------------
-        function size (e) {
-
-            document.getElementById()
+        function sizing () {
+            size = document.getElementById("range").value;
+            console.log(size);
         }
+        sizing();
 
         /// --------------------------------------------
         // 削除ボタン
@@ -208,13 +218,4 @@
             document.getElementById("span"+e.target.id.substr(e.target.className.length, String(count).length)).classList.toggle("strikethrough");
         }
     </script>
-</head>
-<body>
-    <main class="wrapper">
-        <input id="enter" class="enter" type="text" placeholder="やることを入力">
-        <input id="size" class="size" type="range">
-        <button id="add" class="add" onclick="join()">ADD</button>
-        <ul id="list" class="list"></ul>
-    </main>
-</body>
 </html>
