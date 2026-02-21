@@ -21,36 +21,33 @@
         .enter {
             display: block;
             box-sizing: border-box;
-            border-radius: 5px / 10px 5px / 10px 0 0;
+            border-radius: 10px 0 0 10px;
             margin: 0;
-            padding: 5px;
+            padding: 0 0 0 5px;
             border: 0;
             width: 260px;
             height: 40px;
-            font-size: 1.3rem;
             caret-color: black;
             position: relative;
             float: left;
         }
-        .enter::placeholder {
-            position: absolute;
-            top: 6px;
-            left: 7px;
-        }
         .range{
             position: absolute;
-            top: 20px;
-            left: 120px;
+            top: 5px;
+            left: 50%;
+            transform: translate(-50%,0);
         }
         .add {
             display: block;
             float: right;
             background-color: #ddd;
-            border: 0;
+            border: 1px solid #000;
+            border-radius: 0 10px 10px 0;
             margin: 0;
             padding: 0;
             width: 60px;
             height: 40px;
+            cursor: pointer;
         }
         .add:hover {
             transition: background-color 0.05s;
@@ -100,11 +97,12 @@
         }
         .span {
             position: relative;
+            line-height: 1;
             z-index: 1;
         }
         .span.strikethrough {
             text-decoration: line-through;
-            color: #555;
+            color: #888;
         }
         .checkbox {
             position: absolute;
@@ -113,8 +111,7 @@
             box-sizing: border-box;
             margin: 0;
             width: 280px;
-            padding: 20px;
-            /* background-color: transparent; */
+            background-color: transparent;
             border: 0;
             cursor: pointer;
             z-index: 2;
@@ -139,6 +136,7 @@
         };
         let range = NaN;
         let size = 0;
+        let enter = document.getElementById("enter");
         let list = NaN;
         let count = 0;
         let item = NaN;
@@ -178,8 +176,8 @@
             checkbox.id = "checkbox" + count;
 
             //  Event  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-            delation.onClick = delate;
-            checkbox.onClick = striketh;
+            delation.onclick = delate;
+            checkbox.onclick = striketh;
             
             //  Others  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
             checkbox.type = "checkbox";
@@ -193,12 +191,14 @@
 
             // Style \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
             span.style.fontSize = size/100 +"rem";
+            checkbox.style.padding = (Number(size)+10)/200+"rem";
         }
         /// --------------------------------------------
-        // 大小バー
+        // サイズ変更バー
         /// --------------------------------------------
         function sizing () {
             size = document.getElementById("range").value;
+            enter.style.fontSize = size/100 +"rem";
             console.log(size);
         }
         sizing();
